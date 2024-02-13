@@ -1,4 +1,7 @@
-namespace GeneoAPI_1;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace GeneoAPI_1.Entities;
 
 /*
         Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,10 +16,20 @@ namespace GeneoAPI_1;
         or implied. See the License for the specific language governing
         permissions and limitations under the License.
 */
+[Table("geneo_tree")]
 public class GeneoTree
 {
+    [Key]
+    [Required]
+    [Column("tree_uuid")]
+    public string? TreeUuid { get; set; }
+    
+    [Column("created_datetime")]
     public DateTime CreatedDate { get; set; }
-    public string ShortName { get; set; }
-    public string Description { get; set; }
-    public string TreeUuid { get; set; }
+    
+    [Column("short_name")]
+    public string? ShortName { get; set; }
+    
+    [Column("description")]
+    public string? Description { get; set; }
 }

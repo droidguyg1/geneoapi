@@ -1,3 +1,4 @@
+using GeneoAPI_1.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 /*
@@ -27,16 +28,16 @@ public class GeneoTreeController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet(Name = "GetGeneoTree")]
+    [HttpGet(Name = "GetGeneoTrees")]
     public IEnumerable<GeneoTree> Get()
     {
-        return Enumerable.Range(1, 2).Select(index => new GeneoTree
-            {
-                CreatedDate = DateTime.Now,
-                ShortName = "TREE" + Random.Shared.Next(1, 99999),
-                Description = "Some description here."
-            })
-            .ToArray();
+        List<GeneoTree> trees;
+
+        using(var context = new GeneoDbContext()) {
+            trees = context.Trees.ToList();
+        }
+
+        return trees;
     }
 
     [HttpPost(Name = "CreateGeneoTree")]
