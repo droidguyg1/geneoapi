@@ -43,6 +43,16 @@ public class GeneoTreeController : ControllerBase
     [HttpPost(Name = "CreateGeneoTree")]
     public string Create(GeneoTree geneoTree)
     {
+        geneoTree.TreeUuid = Guid.NewGuid().ToString();
+        geneoTree.CreatedDate = DateTime.Now;
+
+        using (var context = new GeneoDbContext())
+        {
+            context.Trees.Add(geneoTree);
+            context.SaveChanges();
+        }
+
+
         return geneoTree.ShortName;
     }
 }

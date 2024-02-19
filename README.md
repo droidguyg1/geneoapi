@@ -42,14 +42,19 @@ Note:
 Schema:
 
 ```sql
-create table geneo_tree
-(
-    short_name       varchar(25)   default ''            not null,
-    description      varchar(255)   default ''           not null,
-    created_datetime timestamp default CURRENT_TIMESTAMP not null,
-    tree_uuid        varchar(25)                         not null,
-    constraint geneo_tree_pk
-        primary key (tree_uuid)
-)
-    comment 'GeneoTree, a root of every genealogy tree';
+CREATE TABLE `geneo_tree` (
+  `short_name` varchar(25) NOT NULL DEFAULT '',
+  `description` varchar(255) NOT NULL DEFAULT '',
+  `created_datetime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp(),
+  `tree_uuid` char(50) NOT NULL,
+  PRIMARY KEY (`tree_uuid`)
+) 
+ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci 
+COMMENT='GeneoTree, a root of every genealogy tree'
 ```
+
+## TODOs
+
+* For geneo tree uuid and create date:
+    * attach to response to user if provided in the request: "TreeUid/CreateDate is ignored; value provided by the system."
+* Remove "ON UPDATE current_timestamp()" from geneo tree DDL.

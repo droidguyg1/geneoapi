@@ -20,7 +20,6 @@ namespace GeneoAPI_1.Entities;
 public class GeneoTree
 {
     [Key]
-    [Required]
     [Column("tree_uuid")]
     public string? TreeUuid { get; set; }
     
