@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GeneoAPI_1.Controllers;
 
 [ApiController]
-[Route("tree")]
+[Route("api")]
 public class GeneoTreeController : ControllerBase
 {
     private readonly ILogger<GeneoTreeController> _logger;
@@ -28,11 +28,22 @@ public class GeneoTreeController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet(Name = "GetGeneoTrees")]
+    [HttpGet("geneo-tree/{guid}")]
+    public GeneoTree GetOne(Guid guid)
+    {
+        GeneoTree? tree;
+
+        using(var context = new GeneoDbContext()) {
+            tree = context.Trees.Find(guid.ToString());
+        }
+
+        return tree;
+    }
+
+    [HttpGet("geneo-trees")]
     public IEnumerable<GeneoTree> Get()
     {
         List<GeneoTree> trees;
-
         using(var context = new GeneoDbContext()) {
             trees = context.Trees.ToList();
         }
@@ -40,7 +51,7 @@ public class GeneoTreeController : ControllerBase
         return trees;
     }
 
-    [HttpPost(Name = "CreateGeneoTree")]
+    [HttpPost("geneo-tree")]
     public string Create(GeneoTree geneoTree)
     {
         geneoTree.TreeUuid = Guid.NewGuid().ToString();
