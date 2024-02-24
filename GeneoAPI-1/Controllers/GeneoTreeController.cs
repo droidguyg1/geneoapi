@@ -1,4 +1,4 @@
-using GeneoAPI_1.Entities;
+using GeneoAPI_1.Models;
 using Microsoft.AspNetCore.Mvc;
 
 /*

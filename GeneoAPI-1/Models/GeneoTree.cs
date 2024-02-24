@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GeneoAPI_1.Entities;
+namespace GeneoAPI_1.Models;
 
 /*
         Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,4 +31,6 @@ public class GeneoTree
     
     [Column("description")]
     public string? Description { get; set; }
+
+    public virtual ICollection<Person> Persons { get; set; }
 }

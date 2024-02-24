@@ -1,5 +1,5 @@
 
-using GeneoAPI_1.Entities;
+using GeneoAPI_1.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GeneoAPI_1;
