@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace GeneoAPI_1.Models;
 
@@ -17,31 +18,28 @@ namespace GeneoAPI_1.Models;
         permissions and limitations under the License.
 */
 [Table("person")]
+[Comment("Represents any individual in the system")]
 public class Person
 {
     [Key]
-    // [Column("uuid")]
     public string? Uuid { get; set; }
     
-    // [Column("created_datetime")]
-    public DateTime CreatedDate { get; set; }
+    public DateTime? CreatedDate { get; set; }
     
     [Required]
     [MaxLength(50)]
-    // [Column("first_name")]
-    public string? FirstName { get; set; }
+    public string FirstName { get; set; }
     
     [Required]
     [MaxLength(50)]
-    // [Column("last_name")]
-    public string? LastName { get; set; }
+    public string LastName { get; set; }
 
     [Required]
-    // [Column("birth_date")]
     public DateOnly? BirthDate { get; set; }
 
-    [Required]
-    // [Column("geneo_tree_uuid")]
-    public virtual GeneoTree GeneoTree { get; set; }
+    [ForeignKey("GeneoTree")]
+    public string GeneoTreeUuid { get; set; }
+
+    public virtual GeneoTree? GeneoTree { get; set; }
     
 }

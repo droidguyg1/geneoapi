@@ -6,6 +6,7 @@ namespace GeneoAPI_1;
 
 public class GeneoDbContext : DbContext {
     public DbSet<GeneoTree>? Trees {get; set; }
+    public DbSet<Person>? Persons {get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

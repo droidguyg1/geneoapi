@@ -34,10 +34,11 @@ Body:
 ## Database Schema
 
 Note:
-1. To be moved from here to schema migration mechanism.
-2. Migration mechanism:
-    3. Via Rider?  How is it represented/usable for devs using different IDE?
-    4. Other?
+1. For now, the truth about the DB schema is in the models of the GeneoAPI project.
+2. .Net Migration mechanism (seems a good solution to me so far):
+    * Create an initial migration: `dotnet ef migrations add InitialCreate`
+    * Create an SQL script from migrations: `dotnet ef migrations script`
+    * Apply the schema migrations to the DB: `dotnet ef database update` 
 
 Schema:
 

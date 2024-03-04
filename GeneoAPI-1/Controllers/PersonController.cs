@@ -19,51 +19,41 @@ namespace GeneoAPI_1.Controllers;
 
 [ApiController]
 [Route("api")]
-public class GeneoTreeController : ControllerBase
+public class PersonController : ControllerBase
 {
     private readonly ILogger<GeneoTreeController> _logger;
 
-    public GeneoTreeController(ILogger<GeneoTreeController> logger)
+    public PersonController(ILogger<GeneoTreeController> logger)
     {
         _logger = logger;
     }
 
-    [HttpGet("geneo-tree/{guid}")]
-    public GeneoTree GetOne(Guid guid)
+    [HttpGet("person/{guid}")]
+    public Person GetOne(Guid guid)
     {
-        GeneoTree? tree;
+        Person? person;
 
         using(var context = new GeneoDbContext()) {
-            tree = context.Trees.Find(guid.ToString());
+            person = context.Persons.Find(guid.ToString());
         }
+        _logger.LogInformation($"Returned person for ID={guid}");
 
-        return tree;
+        return person;
     }
 
-    [HttpGet("geneo-trees")]
-    public IEnumerable<GeneoTree> Get()
+    [HttpPost("person")]
+    public string Create(Person person)
     {
-        List<GeneoTree> trees;
-        using(var context = new GeneoDbContext()) {
-            trees = context.Trees.ToList();
-        }
-
-        return trees;
-    }
-
-    [HttpPost("geneo-tree")]
-    public string Create(GeneoTree geneoTree)
-    {
-        geneoTree.Uuid = Guid.NewGuid().ToString();
-        geneoTree.CreatedDate = DateTime.Now;
+        person.Uuid = Guid.NewGuid().ToString();
+        person.CreatedDate = DateTime.Now;
 
         using (var context = new GeneoDbContext())
         {
-            context.Trees.Add(geneoTree);
+            context.Persons.Add(person);
             context.SaveChanges();
         }
 
 
-        return geneoTree.ShortName;
+        return person.Uuid;
     }
 }

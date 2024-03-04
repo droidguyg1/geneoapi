@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace GeneoAPI_1.Models;
 
@@ -17,20 +18,17 @@ namespace GeneoAPI_1.Models;
         permissions and limitations under the License.
 */
 [Table("geneo_tree")]
+[Comment("A root of every genealogy")]
 public class GeneoTree
 {
     [Key]
-    [Column("tree_uuid")]
-    public string? TreeUuid { get; set; }
+    public string? Uuid { get; set; }
     
-    [Column("created_datetime")]
     public DateTime CreatedDate { get; set; }
     
-    [Column("short_name")]
     public string? ShortName { get; set; }
     
-    [Column("description")]
     public string? Description { get; set; }
 
-    public virtual ICollection<Person> Persons { get; set; }
+    public virtual ICollection<Person>? Persons { get; set; }
 }
